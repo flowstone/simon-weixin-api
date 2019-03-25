@@ -1,0 +1,29 @@
+server:
+  port: 8888
+  servlet:
+    session:
+      timeout: 1800
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: #用户名
+    password: #密码
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    mybatis.configuration.cache-enabled : true
+    mybatis.configuration.lazy-loading-enabled : false
+    mybatis.configuration.aggressive-lazy-loading : false
+    mybatis.configuration.multiple-result-sets-enabled : true
+    mybatis.configuration.default-executor-type : REUSE
+    mybatis.configuration.default-statement-timeout : 25000
+    log-prefix: m_sql.
+
+weixin:
+  token: #微信公众号自定义token
+  appId: #微信公众号appId
+  appSecret: #微信公众号appSecret

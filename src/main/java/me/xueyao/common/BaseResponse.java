@@ -1,6 +1,6 @@
 package me.xueyao.common;
 
-import me.xueyao.contant.ResponseStatus;
+import me.xueyao.constant.ResponseStatus;
 
 /**
  * @author: Simon.Xue

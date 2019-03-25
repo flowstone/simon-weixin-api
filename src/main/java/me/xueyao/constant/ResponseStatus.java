@@ -1,4 +1,4 @@
-package me.xueyao.contant;
+package me.xueyao.constant;
 
 /**
  * @Description:
