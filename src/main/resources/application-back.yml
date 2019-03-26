@@ -27,3 +27,9 @@ weixin:
   token: #微信公众号自定义token
   appId: #微信公众号appId
   appSecret: #微信公众号appSecret
+  token_url: # 获取token
+  login_url: # 用户授权
+  #获取code后，请求以下链接获取access_token
+  access_token: #
+  # 拉取用户信息(需scope为 snsapi_userinfo)    服务号需要认证
+  pull_userInfo: #
