@@ -1,8 +1,12 @@
 package me.xueyao.util;
 
 import me.xueyao.entity.weixin.message.output.Articles;
+import me.xueyao.entity.weixin.message.output.ImageOutMessage;
 import me.xueyao.entity.weixin.message.output.MusicOutMessage;
 import me.xueyao.entity.weixin.message.output.NewsOutMessage;
+import me.xueyao.entity.weixin.message.output.TextMessage;
+import me.xueyao.entity.weixin.message.output.VideoOutMessage;
+import me.xueyao.entity.weixin.message.output.VoiceOutMessage;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
@@ -111,6 +115,131 @@ public class ReplyMessageUtils implements Serializable {
             sb.append("<ThumbMediaId><![CDATA[" + message.getMusic().getThumbMediaId() + "]]></ThumbMediaId>");
         }
         sb.append("</Music>")
+                .append("</xml>");
+        return sb.toString();
+    }
+
+    /**
+     * <xml>
+     *   <ToUserName><![CDATA[toUser]]></ToUserName>
+     *   <FromUserName><![CDATA[fromUser]]></FromUserName>
+     *   <CreateTime>12345678</CreateTime>
+     *   <MsgType><![CDATA[video]]></MsgType>
+     *   <Video>
+     *     <MediaId><![CDATA[media_id]]></MediaId>
+     *     <Title><![CDATA[title]]></Title>
+     *     <Description><![CDATA[description]]></Description>
+     *   </Video>
+     * </xml>
+     * 回复视频消息
+     * @param message
+     * @return
+     */
+    public static String sendVideoMessage(VideoOutMessage message) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("<xml>")
+                .append("<ToUserName><![CDATA["+message.getToUsername()+"]]></ToUserName>")
+                .append("<FromUserName><![CDATA["+message.getFromUsername()+"]]></FromUserName>")
+                .append("<CreateTime>"+message.getCreateTime()+"</CreateTime>")
+                .append("<MsgType><![CDATA["+message.getMsgType()+"]]></MsgType>")
+                .append("<Video>");
+        if (!StringUtils.isEmpty(message.getVideo().getMediaId())) {
+            sb.append("<MediaId><![CDATA[" + message.getVideo().getMediaId() + "]]></MediaId>");
+        }
+        if (!StringUtils.isEmpty(message.getVideo().getTitle())) {
+            sb.append("<Title><![CDATA[" + message.getVideo().getTitle() + "]]></Title>");
+        }
+        if (!StringUtils.isEmpty(message.getVideo().getDescription())) {
+            sb.append("<Description><![CDATA[" + message.getVideo().getDescription() + "]]></Description>");
+        }
+
+        sb.append("</Video>")
+                .append("</xml>");
+        return sb.toString();
+    }
+
+
+    /**
+     * <xml>
+     *   <ToUserName><![CDATA[toUser]]></ToUserName>
+     *   <FromUserName><![CDATA[fromUser]]></FromUserName>
+     *   <CreateTime>12345678</CreateTime>
+     *   <MsgType><![CDATA[voice]]></MsgType>
+     *   <Voice>
+     *     <MediaId><![CDATA[media_id]]></MediaId>
+     *   </Voice>
+     * </xml>
+     * 回复语音消息
+     * @param message
+     * @return
+     */
+    public static String sendVoiceMessage(VoiceOutMessage message) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("<xml>")
+                .append("<ToUserName><![CDATA[" + message.getToUsername() + "]]></ToUserName>")
+                .append("<FromUserName><![CDATA[" + message.getFromUsername() + "]]></FromUserName>")
+                .append("<CreateTime>" + message.getCreateTime() + "</CreateTime>")
+                .append("<MsgType><![CDATA[" + message.getMsgType() + "]]></MsgType>")
+                .append("<Voice>");
+        if (!StringUtils.isEmpty(message.getVoice().getMediaId())) {
+            sb.append("<MediaId><![CDATA[" + message.getVoice().getMediaId() + "]]></MediaId>");
+        }
+        sb.append("</Voice>")
+                .append("</xml>");
+        return sb.toString();
+    }
+
+    /**
+     * <xml>
+     *   <ToUserName><![CDATA[toUser]]></ToUserName>
+     *   <FromUserName><![CDATA[fromUser]]></FromUserName>
+     *   <CreateTime>12345678</CreateTime>
+     *   <MsgType><![CDATA[image]]></MsgType>
+     *   <Image>
+     *     <MediaId><![CDATA[media_id]]></MediaId>
+     *   </Image>
+     * </xml>
+     * 回复图片消息
+     * @param message
+     * @return
+     */
+    public static String sendImageMessage(ImageOutMessage message) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("<xml>")
+                .append("<ToUserName><![CDATA[" + message.getToUsername() + "]]></ToUserName>")
+                .append("<FromUserName><![CDATA[" + message.getFromUsername() + "]]></FromUserName>")
+                .append("<CreateTime>" + message.getCreateTime() + "</CreateTime>")
+                .append("<MsgType><![CDATA[" + message.getMsgType() + "]]></MsgType>")
+                .append("<Image>");
+        if (!StringUtils.isEmpty(message.getImage().getMediaId())) {
+            sb.append("<MediaId><![CDATA[" + message.getImage().getMediaId() + "]]></MediaId>");
+        }
+        sb.append("</Image>")
+                .append("</xml>");
+        return sb.toString();
+    }
+
+
+    /**
+     * <xml>
+     *   <ToUserName><![CDATA[toUser]]></ToUserName>
+     *   <FromUserName><![CDATA[fromUser]]></FromUserName>
+     *   <CreateTime>12345678</CreateTime>
+     *   <MsgType><![CDATA[text]]></MsgType>
+     *   <Content><![CDATA[你好]]></Content>
+     * </xml>
+     * 回复文本消息
+     * @param message
+     * @return
+     */
+    public static String sendTextMessage(TextMessage message) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("<xml>")
+                .append("<ToUserName><![CDATA[" + message.getToUsername() + "]]></ToUserName>")
+                .append("<FromUserName><![CDATA[" + message.getFromUsername() + "]]></FromUserName>")
+                .append("<CreateTime>" + message.getCreateTime() + "</CreateTime>")
+                .append("<MsgType><![CDATA[" + message.getMsgType() + "]]></MsgType>")
+                .append("<Content><![CDATA[" + message.getContent() + "]]></Content>")
                 .append("</xml>");
         return sb.toString();
     }
