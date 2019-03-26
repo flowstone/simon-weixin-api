@@ -12,7 +12,7 @@ public class Music {
     //音乐链接
     private String musicUrl;
     //高质量音乐链接，WIFI环境优先使用该链接播放音乐
-    private String hqMusicUrl;
+    private String hQMusicUrl;
     //缩略图的媒体id，通过上传多媒体文件得到的id
     private String thumbMediaId;
 
@@ -40,12 +40,12 @@ public class Music {
         this.musicUrl = musicUrl;
     }
 
-    public String getHqMusicUrl() {
-        return hqMusicUrl;
+    public String gethQMusicUrl() {
+        return hQMusicUrl;
     }
 
-    public void setHqMusicUrl(String hqMusicUrl) {
-        this.hqMusicUrl = hqMusicUrl;
+    public void sethQMusicUrl(String hQMusicUrl) {
+        this.hQMusicUrl = hQMusicUrl;
     }
 
     public String getThumbMediaId() {

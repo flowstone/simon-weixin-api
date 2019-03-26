@@ -1,5 +1,7 @@
 package me.xueyao.entity.weixin.message.output;
 
+import me.xueyao.constant.MessageType;
+
 import java.util.List;
 
 /**
@@ -31,6 +33,6 @@ public class NewsOutMessage extends BaseOutMessage {
 
     @Override
     public String getMsgType() {
-        return null;
+        return MessageType.IMAGE_TEXT_MESSAGE.name();
     }
 }
