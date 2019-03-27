@@ -21,6 +21,6 @@ public class TextMessage extends BaseOutMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.RESP_MESSAGE_TYPE_TEXT.name();
+        return MessageType.RESP_MESSAGE_TYPE_TEXT;
     }
 }

@@ -31,6 +31,6 @@ public class ShortVideoInputMessage extends BaseMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.SHORTVIDEO_MESSAGE.name();
+        return MessageType.SHORTVIDEO_MESSAGE;
     }
 }

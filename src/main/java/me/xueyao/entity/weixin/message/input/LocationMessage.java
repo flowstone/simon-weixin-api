@@ -51,6 +51,6 @@ public class LocationMessage extends BaseMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.POSOTION_MESSAGE.name();
+        return MessageType.POSOTION_MESSAGE;
     }
 }

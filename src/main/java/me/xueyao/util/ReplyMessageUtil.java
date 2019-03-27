@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author: Simon.Xue
  * @date: 2019/3/26 19:58
  */
-public class ReplyMessageUtils implements Serializable {
+public class ReplyMessageUtil implements Serializable {
 
     /**
      * <xml>

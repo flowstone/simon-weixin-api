@@ -31,6 +31,6 @@ public class ImageMessage extends BaseMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.IMAGE_MESSAGE.name();
+        return MessageType.IMAGE_MESSAGE;
     }
 }

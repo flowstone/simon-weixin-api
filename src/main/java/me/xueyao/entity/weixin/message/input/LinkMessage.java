@@ -41,6 +41,6 @@ public class LinkMessage extends BaseMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.LINK_MESSAGE.name();
+        return MessageType.LINK_MESSAGE.getMessageType();
     }
 }

@@ -41,6 +41,6 @@ public class VoiceMessage extends BaseMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.VOICE_MESSAGE.name();
+        return MessageType.VOICE_MESSAGE;
     }
 }

@@ -31,7 +31,7 @@ import java.util.Map;
  * @author: Simon.Xue
  * @date: 2019/3/25 10:29
  */
-public class HttpClientUtils {
+public class HttpClientUtil {
 
     /**
      * post请求传输map数据

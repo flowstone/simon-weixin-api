@@ -20,6 +20,6 @@ public class MusicOutMessage extends BaseOutMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.RESP_MESSAGE_TYPE_MUSIC.name();
+        return MessageType.RESP_MESSAGE_TYPE_MUSIC;
     }
 }

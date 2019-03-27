@@ -33,6 +33,6 @@ public class NewsOutMessage extends BaseOutMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.IMAGE_TEXT_MESSAGE.name();
+        return MessageType.IMAGE_TEXT_MESSAGE;
     }
 }

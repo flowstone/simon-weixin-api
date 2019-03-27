@@ -15,10 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 消息处理工具
  * @author: Simon.Xue
  * @date: 2019/3/26 16:33
  */
-public class WXMessageUtil {
+public class MessageUtil {
 
     /**
      * 将用户的xml消息提取成map key value 类型

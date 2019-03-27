@@ -20,6 +20,6 @@ public class VoiceOutMessage extends BaseOutMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.RESP_MESSAGE_TYPE_VOICE.name();
+        return MessageType.RESP_MESSAGE_TYPE_VOICE;
     }
 }

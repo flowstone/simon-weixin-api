@@ -20,6 +20,6 @@ public class VideoOutMessage extends BaseOutMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.RESP_MESSAGE_TYPE_VIDEO.name();
+        return MessageType.RESP_MESSAGE_TYPE_VIDEO;
     }
 }

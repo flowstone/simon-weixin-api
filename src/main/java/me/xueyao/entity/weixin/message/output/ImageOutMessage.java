@@ -20,6 +20,6 @@ public class ImageOutMessage extends BaseOutMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.RESP_MESSAGE_TYPE_IMAGE.name();
+        return MessageType.RESP_MESSAGE_TYPE_IMAGE;
     }
 }

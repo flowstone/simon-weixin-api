@@ -31,6 +31,6 @@ public class VideoMessage extends BaseMessage {
 
     @Override
     public String getMsgType() {
-        return MessageType.VIDEO_MESSAGE.name();
+        return MessageType.VIDEO_MESSAGE;
     }
 }
