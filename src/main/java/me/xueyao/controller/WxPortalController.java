@@ -1,12 +1,10 @@
 package me.xueyao.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import me.xueyao.common.BaseResponse;
+import com.thoughtworks.xstream.XStreamer;
 import me.xueyao.config.WeiXinConfig;
-import me.xueyao.constant.ResponseStatus;
-import me.xueyao.entity.UserInfo;
-import me.xueyao.entity.UserToken;
 import me.xueyao.entity.WeiXinToken;
+import me.xueyao.entity.message.TextMessage;
 import me.xueyao.util.CheckSignatureUtil;
 import me.xueyao.util.HttpClientUtil;
 import org.slf4j.Logger;
@@ -14,13 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.ObjectStreamException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -30,8 +29,8 @@ import java.net.URLEncoder;
  */
 @RestController
 @RequestMapping("/wx")
-public class LoginController {
-    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
+public class WxPortalController {
+    private final Logger logger = LoggerFactory.getLogger(WxPortalController.class);
 
     @Autowired
     private WeiXinConfig weiXinConfig;
@@ -39,32 +38,53 @@ public class LoginController {
     @Autowired
     private CheckSignatureUtil checkSignatureUtil;
 
-    @GetMapping("/check")
-    public void checkWxMsg(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //微信加密签名
-        String signature = request.getParameter("signature");
-        //随机字符串
-        String echostr = request.getParameter("echostr");
-        //时间戳
-        String timestamp = request.getParameter("timestamp");
-        //随机数
-        String nonce = request.getParameter("nonce");
+    /**
+     * 微信认证接口
+     * @param signature
+     * @param echostr
+     * @param timestamp
+     * @param nonce
+     * @return
+     * @throws IOException
+     */
+    @GetMapping
+    public String authGet(@RequestParam(name = "signature", required = false) String signature,
+                           @RequestParam(name = "echostr", required = false) String echostr,
+                           @RequestParam(name = "timestamp", required = false) String timestamp,
+                           @RequestParam(name = "nonce", required = false) String nonce) throws IOException {
+
+        logger.info("接收到来自微信服务器的认证消息：[signature = {}, echostr = {}, timestamp = {}, nonce = {}]",
+                signature, echostr, timestamp, nonce);
         if (StringUtils.isEmpty(signature) || StringUtils.isEmpty(echostr)
                 || StringUtils.isEmpty(timestamp) || StringUtils.isEmpty(timestamp)
                 || StringUtils.isEmpty(nonce)) {
-            logger.warn("公众号请求头不能为空");
-            return;
+            logger.warn("请求参数非法，请核实!");
+            throw new IllegalArgumentException("请求参数非法，请核实!");
         }
         if (checkSignatureUtil.checkSignature(signature, timestamp, nonce)) {
-            response.getWriter().write(echostr);
+            return echostr;
         }
-
+        return "非法请求";
     }
 
+    @PostMapping
+    public String post(@RequestBody String requestBody,
+                       @RequestParam("signature") String signature,
+                       @RequestParam("timestamp") String timestamp,
+                       @RequestParam("nonce") String nonce,
+                       @RequestParam(name = "openid", required = false) String openid,
+                       @RequestParam(name = "encrypt_type", required = false) String encType,
+                       @RequestParam(name = "msg_signature", required = false) String msgSignature) throws Exception {
+        logger.info("接收微信请求：[openid=[{}], signature=[{}], timestamp=[{}]" +
+                        ", encrypt_type=[{}], msg_signature=[{}], nonce=[{}], requestBody=[{}]]",
+                openid, signature, timestamp, encType, msgSignature, nonce, requestBody);
+
+
+        return "";
+    }
     @GetMapping("/token")
-    public BaseResponse getWeiXinToken() {
+    public String getWeiXinToken() {
         logger.info("开始获取微信access_token");
-        BaseResponse response = new BaseResponse(ResponseStatus.SUCCESS);
         String url = weiXinConfig.getTokenUrl().replaceAll("APPID", weiXinConfig.getAppId())
                 .replaceAll("APPSECRET", weiXinConfig.getAppSecret());
         logger.info("url = {}", url);
@@ -73,16 +93,12 @@ public class LoginController {
         if (StringUtils.isEmpty(weiXinToken.getAccessToken())
                 || StringUtils.isEmpty(weiXinToken.getExpiresIn())) {
             logger.warn("获取微信access_token失败");
-            response.setCode(weiXinToken.getErrcode());
-            response.setMsg(weiXinToken.getErrmsg());
-            return response;
+            return JSONObject.toJSONString(weiXinToken);
         }
 
 
         logger.info("获取微信access_token成功, {}", JSONObject.toJSONString(weiXinToken));
-        response.setMsg("获取微信access_token成功");
-        response.setData(result);
-        return response;
+        return JSONObject.toJSONString(weiXinToken);
     }
     /**
      * 用户授权
@@ -116,10 +132,9 @@ public class LoginController {
      * @param code
      * @return
      */
-    @GetMapping("/getUserInfo")
-    public BaseResponse getUserInfo(@RequestParam("code") String code) {
+    /*@GetMapping("/getUserInfo")
+    public String getUserInfo(@RequestParam("code") String code) {
         logger.info("获得用户code = {}", code);
-        BaseResponse response = new BaseResponse(ResponseStatus.SUCCESS);
         String accessTokenUrl = weiXinConfig.getAccessToken().replaceAll("APPID", weiXinConfig.getAppId())
                 .replaceAll("SECRET", weiXinConfig.getAppSecret())
                 .replaceAll("CODE", code);
@@ -148,6 +163,6 @@ public class LoginController {
         response.setMsg("获得用户信息成功");
         response.setData(userInfo);
         return response;
-    }
+    }*/
 
 }

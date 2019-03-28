@@ -1,3 +1,4 @@
+/*
 package me.xueyao.util;
 
 import me.xueyao.entity.weixin.message.output.Articles;
@@ -11,14 +12,17 @@ import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 
+*/
 /**
  * 回复消息工具类
  * @author: Simon.Xue
  * @date: 2019/3/26 19:58
- */
+ *//*
+
 public class ReplyMessageUtil implements Serializable {
 
-    /**
+    */
+/**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
      *   <FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -37,7 +41,8 @@ public class ReplyMessageUtil implements Serializable {
      * 回复图文消息
      * @param message
      * @return
-     */
+     *//*
+
     public static String sendImageTextMessage(NewsOutMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
@@ -71,7 +76,8 @@ public class ReplyMessageUtil implements Serializable {
     }
 
 
-    /**
+    */
+/**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
      *   <FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -88,7 +94,8 @@ public class ReplyMessageUtil implements Serializable {
      * 回复音乐消息
      * @param message
      * @return
-     */
+     *//*
+
     public static String sendMusicMessage(MusicOutMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
@@ -119,7 +126,8 @@ public class ReplyMessageUtil implements Serializable {
         return sb.toString();
     }
 
-    /**
+    */
+/**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
      *   <FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -134,7 +142,8 @@ public class ReplyMessageUtil implements Serializable {
      * 回复视频消息
      * @param message
      * @return
-     */
+     *//*
+
     public static String sendVideoMessage(VideoOutMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
@@ -159,7 +168,8 @@ public class ReplyMessageUtil implements Serializable {
     }
 
 
-    /**
+    */
+/**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
      *   <FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -172,7 +182,8 @@ public class ReplyMessageUtil implements Serializable {
      * 回复语音消息
      * @param message
      * @return
-     */
+     *//*
+
     public static String sendVoiceMessage(VoiceOutMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
@@ -189,7 +200,8 @@ public class ReplyMessageUtil implements Serializable {
         return sb.toString();
     }
 
-    /**
+    */
+/**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
      *   <FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -202,7 +214,8 @@ public class ReplyMessageUtil implements Serializable {
      * 回复图片消息
      * @param message
      * @return
-     */
+     *//*
+
     public static String sendImageMessage(ImageOutMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
@@ -220,7 +233,8 @@ public class ReplyMessageUtil implements Serializable {
     }
 
 
-    /**
+    */
+/**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
      *   <FromUserName><![CDATA[fromUser]]></FromUserName>
@@ -231,7 +245,8 @@ public class ReplyMessageUtil implements Serializable {
      * 回复文本消息
      * @param message
      * @return
-     */
+     *//*
+
     public static String sendTextMessage(TextMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
@@ -244,3 +259,4 @@ public class ReplyMessageUtil implements Serializable {
         return sb.toString();
     }
 }
+*/
