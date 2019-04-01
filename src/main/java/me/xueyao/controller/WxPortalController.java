@@ -1,27 +1,32 @@
 package me.xueyao.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.thoughtworks.xstream.XStreamer;
 import me.xueyao.config.WeiXinConfig;
+import me.xueyao.constant.WxConsts;
 import me.xueyao.entity.WeiXinToken;
-import me.xueyao.entity.message.TextMessage;
+import me.xueyao.entity.message.request.InTextMessage;
 import me.xueyao.util.CheckSignatureUtil;
 import me.xueyao.util.HttpClientUtil;
+import me.xueyao.util.MessageUtil;
+import me.xueyao.util.ReplyMessageUtil;
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.ObjectStreamException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * @author: Simon.Xue
@@ -68,20 +73,67 @@ public class WxPortalController {
     }
 
     @PostMapping
-    public String post(@RequestBody String requestBody,
-                       @RequestParam("signature") String signature,
-                       @RequestParam("timestamp") String timestamp,
-                       @RequestParam("nonce") String nonce,
-                       @RequestParam(name = "openid", required = false) String openid,
-                       @RequestParam(name = "encrypt_type", required = false) String encType,
-                       @RequestParam(name = "msg_signature", required = false) String msgSignature) throws Exception {
-        logger.info("接收微信请求：[openid=[{}], signature=[{}], timestamp=[{}]" +
-                        ", encrypt_type=[{}], msg_signature=[{}], nonce=[{}], requestBody=[{}]]",
-                openid, signature, timestamp, encType, msgSignature, nonce, requestBody);
+    public String post(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, String> map = MessageUtil.convertXMLToMap(request);
+        logger.info("map = {}", JSONObject.toJSONString(map));
+        String msgType = map.get("MsgType");
+        String result = "";
+        switch (msgType) {
+            case WxConsts.XmlMsgType.TEXT:
+                result = handleTextMessage(map);
+                break;
+            case WxConsts.XmlMsgType.IMAGE:
+                result = handleImageMessage(map);
+                break;
+            case WxConsts.XmlMsgType.VOICE:
+                result = handleVoiceMessage(map);
+                break;
+            case WxConsts.XmlMsgType.VIDEO:
+                handleVideoMessage(map);
+                break;
+            case WxConsts.XmlMsgType.LOCATION:
+                result = handleLocationMessage(map);
+                break;
+            case WxConsts.XmlMsgType.LINK:
+                result = handleLinkMessage(map);
+                break;
+            default:
+                logger.info("这是啥");
+        }
+        return result;
+    }
 
-
+    private String handleLinkMessage(Map<String, String> map) {
         return "";
     }
+
+    private String handleLocationMessage(Map<String, String> map) {
+        return "";
+    }
+
+    private String handleVideoMessage(Map<String, String> map) {
+        return "";
+    }
+
+    private String handleVoiceMessage(Map<String, String> map) {
+        return "";
+    }
+
+    private String handleImageMessage(Map<String, String> map) {
+        return "";
+    }
+
+    private String handleTextMessage(Map<String, String> map) {
+        InTextMessage inTextMessage = new InTextMessage();
+        inTextMessage.setToUserName(map.get("FromUserName"));
+        inTextMessage.setFromUserName(map.get("ToUserName"));
+        inTextMessage.setCreateTime(new Date().getTime());
+        inTextMessage.setContent(map.get("Content"));
+        inTextMessage.setMsgType(map.get("MsgType"));
+        return ReplyMessageUtil.sendTextMessage(inTextMessage);
+        //return MessageUtil.convertObjectToXml(inTextMessage);
+    }
+
     @GetMapping("/token")
     public String getWeiXinToken() {
         logger.info("开始获取微信access_token");

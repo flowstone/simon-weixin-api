@@ -1,27 +1,24 @@
-/*
 package me.xueyao.util;
 
-import me.xueyao.entity.weixin.message.output.Articles;
-import me.xueyao.entity.weixin.message.output.ImageOutMessage;
-import me.xueyao.entity.weixin.message.output.MusicOutMessage;
-import me.xueyao.entity.weixin.message.output.NewsOutMessage;
-import me.xueyao.entity.weixin.message.output.TextMessage;
-import me.xueyao.entity.weixin.message.output.VideoOutMessage;
-import me.xueyao.entity.weixin.message.output.VoiceOutMessage;
+
+import me.xueyao.entity.message.request.InTextMessage;
+import me.xueyao.entity.message.response.OutImageMessage;
+import me.xueyao.entity.message.response.OutMusicMessage;
+import me.xueyao.entity.message.response.OutVideoMessage;
+import me.xueyao.entity.message.response.OutVoiceMessage;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 
-*/
 /**
  * 回复消息工具类
  * @author: Simon.Xue
  * @date: 2019/3/26 19:58
- *//*
+ * */
+
 
 public class ReplyMessageUtil implements Serializable {
 
-    */
 /**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -41,9 +38,9 @@ public class ReplyMessageUtil implements Serializable {
      * 回复图文消息
      * @param message
      * @return
-     *//*
+     */
 
-    public static String sendImageTextMessage(NewsOutMessage message) {
+    /*public static String sendImageTextMessage(NewsOutMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
                 .append("<ToUserName><![CDATA[" + message.getToUsername() + "]]></ToUserName>")
@@ -73,10 +70,9 @@ public class ReplyMessageUtil implements Serializable {
         sb.append("</Articles>")
                 .append("</xml>");
         return sb.toString();
-    }
+    }*/
 
 
-    */
 /**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -94,13 +90,13 @@ public class ReplyMessageUtil implements Serializable {
      * 回复音乐消息
      * @param message
      * @return
-     *//*
+     */
 
-    public static String sendMusicMessage(MusicOutMessage message) {
+    public static String sendMusicMessage(OutMusicMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
-                .append("<ToUserName><![CDATA[" + message.getToUsername() + "]]></ToUserName>")
-                .append("<FromUserName><![CDATA[" + message.getFromUsername() + "]]></FromUserName>")
+                .append("<ToUserName><![CDATA[" + message.getToUserName() + "]]></ToUserName>")
+                .append("<FromUserName><![CDATA[" + message.getFromUserName() + "]]></FromUserName>")
                 .append("<CreateTime>" + message.getCreateTime() + "</CreateTime>")
                 .append("<MsgType><![CDATA[" + message.getMsgType() + "]]></MsgType>")
                 .append("<Music>");
@@ -115,8 +111,8 @@ public class ReplyMessageUtil implements Serializable {
             sb.append("<MusicUrl><![CDATA[" + message.getMusic().getMusicUrl() + "]]></MusicUrl>");
         }
 
-        if (!StringUtils.isEmpty(message.getMusic().gethQMusicUrl())) {
-            sb.append("<HQMusicUrl><![CDATA[" + message.getMusic().gethQMusicUrl() + "]]></HQMusicUrl>");
+        if (!StringUtils.isEmpty(message.getMusic().getHQMusicUrl())) {
+            sb.append("<HQMusicUrl><![CDATA[" + message.getMusic().getHQMusicUrl() + "]]></HQMusicUrl>");
         }
         if (!StringUtils.isEmpty(message.getMusic().getThumbMediaId())) {
             sb.append("<ThumbMediaId><![CDATA[" + message.getMusic().getThumbMediaId() + "]]></ThumbMediaId>");
@@ -126,7 +122,6 @@ public class ReplyMessageUtil implements Serializable {
         return sb.toString();
     }
 
-    */
 /**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -142,13 +137,13 @@ public class ReplyMessageUtil implements Serializable {
      * 回复视频消息
      * @param message
      * @return
-     *//*
+     */
 
-    public static String sendVideoMessage(VideoOutMessage message) {
+    public static String sendVideoMessage(OutVideoMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
-                .append("<ToUserName><![CDATA["+message.getToUsername()+"]]></ToUserName>")
-                .append("<FromUserName><![CDATA["+message.getFromUsername()+"]]></FromUserName>")
+                .append("<ToUserName><![CDATA["+message.getToUserName()+"]]></ToUserName>")
+                .append("<FromUserName><![CDATA["+message.getFromUserName()+"]]></FromUserName>")
                 .append("<CreateTime>"+message.getCreateTime()+"</CreateTime>")
                 .append("<MsgType><![CDATA["+message.getMsgType()+"]]></MsgType>")
                 .append("<Video>");
@@ -168,7 +163,6 @@ public class ReplyMessageUtil implements Serializable {
     }
 
 
-    */
 /**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -182,13 +176,13 @@ public class ReplyMessageUtil implements Serializable {
      * 回复语音消息
      * @param message
      * @return
-     *//*
+     */
 
-    public static String sendVoiceMessage(VoiceOutMessage message) {
+    public static String sendVoiceMessage(OutVoiceMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
-                .append("<ToUserName><![CDATA[" + message.getToUsername() + "]]></ToUserName>")
-                .append("<FromUserName><![CDATA[" + message.getFromUsername() + "]]></FromUserName>")
+                .append("<ToUserName><![CDATA[" + message.getToUserName() + "]]></ToUserName>")
+                .append("<FromUserName><![CDATA[" + message.getFromUserName() + "]]></FromUserName>")
                 .append("<CreateTime>" + message.getCreateTime() + "</CreateTime>")
                 .append("<MsgType><![CDATA[" + message.getMsgType() + "]]></MsgType>")
                 .append("<Voice>");
@@ -200,7 +194,6 @@ public class ReplyMessageUtil implements Serializable {
         return sb.toString();
     }
 
-    */
 /**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -214,13 +207,13 @@ public class ReplyMessageUtil implements Serializable {
      * 回复图片消息
      * @param message
      * @return
-     *//*
+     */
 
-    public static String sendImageMessage(ImageOutMessage message) {
+    public static String sendImageMessage(OutImageMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
-                .append("<ToUserName><![CDATA[" + message.getToUsername() + "]]></ToUserName>")
-                .append("<FromUserName><![CDATA[" + message.getFromUsername() + "]]></FromUserName>")
+                .append("<ToUserName><![CDATA[" + message.getToUserName() + "]]></ToUserName>")
+                .append("<FromUserName><![CDATA[" + message.getFromUserName() + "]]></FromUserName>")
                 .append("<CreateTime>" + message.getCreateTime() + "</CreateTime>")
                 .append("<MsgType><![CDATA[" + message.getMsgType() + "]]></MsgType>")
                 .append("<Image>");
@@ -233,7 +226,6 @@ public class ReplyMessageUtil implements Serializable {
     }
 
 
-    */
 /**
      * <xml>
      *   <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -245,13 +237,13 @@ public class ReplyMessageUtil implements Serializable {
      * 回复文本消息
      * @param message
      * @return
-     *//*
+     */
 
-    public static String sendTextMessage(TextMessage message) {
+    public static String sendTextMessage(InTextMessage message) {
         StringBuffer sb = new StringBuffer();
         sb.append("<xml>")
-                .append("<ToUserName><![CDATA[" + message.getToUsername() + "]]></ToUserName>")
-                .append("<FromUserName><![CDATA[" + message.getFromUsername() + "]]></FromUserName>")
+                .append("<ToUserName><![CDATA[" + message.getToUserName() + "]]></ToUserName>")
+                .append("<FromUserName><![CDATA[" + message.getFromUserName() + "]]></FromUserName>")
                 .append("<CreateTime>" + message.getCreateTime() + "</CreateTime>")
                 .append("<MsgType><![CDATA[" + message.getMsgType() + "]]></MsgType>")
                 .append("<Content><![CDATA[" + message.getContent() + "]]></Content>")
@@ -259,4 +251,3 @@ public class ReplyMessageUtil implements Serializable {
         return sb.toString();
     }
 }
-*/

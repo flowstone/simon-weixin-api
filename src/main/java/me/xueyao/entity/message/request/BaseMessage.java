@@ -1,27 +1,26 @@
-package me.xueyao.entity.message;
+package me.xueyao.entity.message.request;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
-
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
+ * 消息基类
  * @author: Simon.Xue
- * @date: 2019/3/28 17:59
+ * @date: 2019/4/1 11:40
  */
-@XStreamAlias("xml")
 @Data
-public class TextMessage implements Serializable {
+public class BaseMessage {
+
     @XStreamAlias("ToUserName")
-    private String toUser;
+    private String toUserName;
     @XStreamAlias("FromUserName")
-    private String fromUser;
+    private String fromUserName;
     @XStreamAlias("CreateTime")
     private Long createTime;
     @XStreamAlias("MsgType")
     private String msgType;
-    @XStreamAlias("Content")
-    private String content;
     @XStreamAlias("MsgId")
-    private String msgId;
+    private Long msgId;
 }
