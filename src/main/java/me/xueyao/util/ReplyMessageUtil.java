@@ -1,6 +1,7 @@
 package me.xueyao.util;
 
 
+import me.xueyao.entity.message.event.SubscribeMessage;
 import me.xueyao.entity.message.request.InTextMessage;
 import me.xueyao.entity.message.response.OutImageMessage;
 import me.xueyao.entity.message.response.OutMusicMessage;
@@ -247,6 +248,28 @@ public class ReplyMessageUtil implements Serializable {
                 .append("<CreateTime>" + message.getCreateTime() + "</CreateTime>")
                 .append("<MsgType><![CDATA[" + message.getMsgType() + "]]></MsgType>")
                 .append("<Content><![CDATA[" + message.getContent() + "]]></Content>")
+                .append("</xml>");
+        return sb.toString();
+    }
+
+    /**
+     * <xml>
+     * <ToUserName><![CDATA[toUser]]></ToUserName>
+     * <FromUserName><![CDATA[FromUser]]></FromUserName>
+     * <CreateTime>123456789</CreateTime>
+     * <MsgType><![CDATA[event]]></MsgType>
+     * <Event><![CDATA[subscribe]]></Event>
+     * </xml>
+     * 关注事件
+     */
+    public static String sendSubscribeMessage(SubscribeMessage message) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("<xml>")
+                .append("<ToUserName><![CDATA[" + message.getToUserName() + "]]></ToUserName>")
+                .append("<FromUserName><![CDATA[" + message.getFromUserName() + "]]></FromUserName>")
+                .append("<CreateTime>" + message.getCreateTime() + "</CreateTime>")
+                .append("<MsgType><![CDATA[" + message.getMsgType() + "]]></MsgType>")
+                .append("<Event><![CDATA[" + message.getEvent() + "]]></Event>")
                 .append("</xml>");
         return sb.toString();
     }

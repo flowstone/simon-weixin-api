@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.xueyao.config.WeiXinConfig;
 import me.xueyao.constant.WxConsts;
 import me.xueyao.entity.WeiXinToken;
+import me.xueyao.entity.message.event.SubscribeMessage;
 import me.xueyao.entity.message.request.InTextMessage;
 import me.xueyao.util.CheckSignatureUtil;
 import me.xueyao.util.HttpClientUtil;
@@ -97,8 +98,33 @@ public class WxPortalController {
             case WxConsts.XmlMsgType.LINK:
                 result = handleLinkMessage(map);
                 break;
+            case WxConsts.XmlMsgType.EVENT:
+                result = handleEventMessage(map);
+                break;
             default:
                 logger.info("这是啥");
+        }
+        return result;
+    }
+
+    /**
+     * 关注微信公众号发送消息
+     * @param map
+     * @return
+     */
+    private String handleEventMessage(Map<String, String> map) {
+        String event = map.get("Event");
+        StringBuffer sb = new StringBuffer();
+        String result = "";
+        if (WxConsts.EventType.SUBSCRIBE.equals(event)) {
+            InTextMessage inTextMessage = new InTextMessage();
+            inTextMessage.setToUserName(map.get("FromUserName"));
+            inTextMessage.setFromUserName(map.get("ToUserName"));
+            inTextMessage.setCreateTime(new Date().getTime());
+            sb.append("欢迎关注测试公众号，请绑定你的手机号<a href=\"http://www.lphr.com\">点击绑定</a>");
+            inTextMessage.setContent(sb.toString());
+            inTextMessage.setMsgType("text");
+            result =  ReplyMessageUtil.sendTextMessage(inTextMessage);
         }
         return result;
     }
